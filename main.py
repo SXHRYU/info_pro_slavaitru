@@ -69,8 +69,10 @@ class AddressTemplate(DataTemplate):
 
 
 class IPV4Template(DataTemplate):
+    regex: re.Pattern = re.compile(r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
+
     def is_valid_format(self, data: str) -> bool:
-        return True
+        return bool(re.fullmatch(self.regex, data))
 
 class IPV6Template(DataTemplate):
     def is_valid_format(self, data: str) -> bool:
