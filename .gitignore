@@ -1,0 +1,6 @@
+venv
+.ps1
+.sh
+.vscode
+.mypy_cache
+.pytest_cache
