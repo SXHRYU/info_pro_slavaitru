@@ -61,8 +61,11 @@ class EmailTemplate(DataTemplate):
 
 
 class AddressTemplate(DataTemplate):
+    regex: re.Pattern = re.compile(
+        r"^\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]\d*[,.\-/ ]\d*[,.\-/ ]*\w*[,.\-/ ]*\d*\w*[,.\-/ ]*\w*$"
+    )
     def is_valid_format(self, data: str) -> bool:
-        return True
+        return bool(re.fullmatch(self.regex, data))
 
 
 class IPV4Template(DataTemplate):
