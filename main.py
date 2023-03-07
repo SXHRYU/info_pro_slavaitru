@@ -72,6 +72,10 @@ class IPV4Template(DataTemplate):
     def is_valid_format(self, data: str) -> bool:
         return True
 
+class IPV6Template(DataTemplate):
+    def is_valid_format(self, data: str) -> bool:
+        return True
+
 
 class ITNTemplate(DataTemplate):
     def is_valid_format(self, data: str) -> bool:
