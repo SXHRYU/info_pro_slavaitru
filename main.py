@@ -95,6 +95,18 @@ class INNTemplate(DataTemplate):
         return bool(re.fullmatch(self.regex, data))
 
 
+class TimeTemplate(DataTemplate):
+    regex: re.Pattern = re.compile(r"^([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$")
+    verbose_name: str = "Время"
+
+    def is_valid_format(self, data: str) -> bool:
+        if data[0] == "0":
+            normalised_data = data[1:]
+        else:
+            normalised_data = data
+        return bool(re.fullmatch(self.regex, normalised_data))
+    
+
 class UnknownTemplate(DataTemplate):
     verbose_name: str = "Новый тип"
 
@@ -123,12 +135,15 @@ def assign_file_data_types(path: str):
             IPV4Template(),
             IPV6Template(),
             INNTemplate(),
+            TimeTemplate(),
         )
     )
     with open(path, "r", encoding="utf-8") as file:
         types = []
         for data in file.readline().split("\t"):
+            if data[-1] == "\n":
+                data = data[:-1]
             types.append(t.assign_data_type(data))
         return types
 
-print(assign_file_data_types("test.txt"))
+print([i.verbose_name for i in assign_file_data_types("test.txt")], sep="\n")
