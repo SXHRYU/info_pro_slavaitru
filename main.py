@@ -2,6 +2,7 @@ from django.core.validators import EmailValidator
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
+from typing import Sequence
 
 
 class DataTemplate(ABC):
@@ -10,10 +11,10 @@ class DataTemplate(ABC):
     def is_valid_format(cls, data):
         raise NotImplementedError
 
-    # @property
-    # @abstractmethod
-    # def formats(cls):
-    #     raise NotImplementedError("Override 'formats' attribute.")
+    @property
+    @abstractmethod
+    def verbose_name(cls):
+        raise NotImplementedError("Override 'verbose_name' attribute.")
 
 
 class DateTemplate(DataTemplate):
@@ -27,6 +28,7 @@ class DateTemplate(DataTemplate):
         "%a,%d/%m/%y,%I:%M%p",  # -> "Sun,05/12/99,12:30PM"
         "%a, %d %B, %Y",  # -> "Mon, 21 March, 2015"
     ]
+    verbose_name: str = "Дата"
 
     @classmethod
     def is_valid_format(cls, data: str) -> bool:
@@ -43,6 +45,7 @@ class DateTemplate(DataTemplate):
 
 class PhoneTemplate(DataTemplate):
     regex: re.Pattern = re.compile(r"^\+?1?\d{9,15}")
+    verbose_name: str = "Телефонный номер"
 
     def is_valid_format(self, data: str) -> bool:
         # fmt: off
@@ -53,6 +56,7 @@ class PhoneTemplate(DataTemplate):
 
 class EmailTemplate(DataTemplate):
     regex: re.Pattern = re.compile(r"^\S+@\S+\.\S+$", re.IGNORECASE)
+    verbose_name: str = "Email"
 
     def is_valid_format(self, data: str) -> bool:
         return bool(re.fullmatch(self.regex, data))
@@ -60,36 +64,71 @@ class EmailTemplate(DataTemplate):
 
 class AddressTemplate(DataTemplate):
     regex: re.Pattern = re.compile(
-        r"^\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]\d*[,.\-/ ]\d*[,.\-/ ]*\w*[,.\-/ ]*\d*\w*[,.\-/ ]*\w*$"
+        r"^\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]*\w*[,.\-/ ]*[,.\-/ ]\d*[,.\-/ ]\d*[,.\-/ ]*\w*[,.\-/ ]*\d*\w*[,.\-/ ]*\w.*$"
     )
+    verbose_name: str = "Адрес"
+
     def is_valid_format(self, data: str) -> bool:
         return bool(re.fullmatch(self.regex, data))
 
 
 class IPV4Template(DataTemplate):
     regex: re.Pattern = re.compile(r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
+    verbose_name: str = "IPv4"
 
     def is_valid_format(self, data: str) -> bool:
         return bool(re.fullmatch(self.regex, data))
 
 class IPV6Template(DataTemplate):
     regex: re.Pattern = re.compile(r"((([0-9a-fA-F]){1,4})\\:){7}([0-9a-fA-F]){1,4}")
+    verbose_name: str = "IPv6"
 
     def is_valid_format(self, data: str) -> bool:
         return bool(re.fullmatch(self.regex, data))
 
 
-class ITNTemplate(DataTemplate):
+class INNTemplate(DataTemplate):
     regex: re.Pattern = re.compile(r"^\d{10,12}$")
+    verbose_name: str = "ИНН"
 
     def is_valid_format(self, data: str) -> bool:
         return bool(re.fullmatch(self.regex, data))
 
 
-print(DateTemplate().is_valid_format("2020/12/01"))
-print(PhoneTemplate().is_valid_format("89151394626"))
+class UnknownTemplate(DataTemplate):
+    verbose_name: str = "Новый тип"
 
-def read_txt(path: str):
+    def is_valid_format(self, data: str) -> bool:
+        ...
+
+class TypeAssigner:
+    def __init__(self, templates: Sequence[DataTemplate]) -> None:
+        self.templates = templates
+        self.assigned_type: DataTemplate = None
+    
+    def assign_data_type(self, data: str) -> DataTemplate:
+        for template in self.templates:
+            if template.is_valid_format(data):
+                self.assigned_type = template
+                return self.assigned_type
+        return UnknownTemplate()
+
+def assign_file_data_types(path: str):
+    t = TypeAssigner(
+        (
+            DateTemplate(),
+            PhoneTemplate(),
+            EmailTemplate(),
+            AddressTemplate(),
+            IPV4Template(),
+            IPV6Template(),
+            INNTemplate(),
+        )
+    )
     with open(path, "r", encoding="utf-8") as file:
-        for line in file:
-            print(line)
+        types = []
+        for data in file.readline().split("\t"):
+            types.append(t.assign_data_type(data))
+        return types
+
+print(assign_file_data_types("test.txt"))

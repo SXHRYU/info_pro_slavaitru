@@ -3,8 +3,8 @@ import faker
 
 f = faker.Faker("ru_RU")
 
-with open("test_final.txt", "w", encoding="utf-8") as file:
-    for _ in range(10_000_000):
+with open("test.txt", "w", encoding="utf-8") as file:
+    for _ in range(100):
         # fmt: off
         file.write(
             (
