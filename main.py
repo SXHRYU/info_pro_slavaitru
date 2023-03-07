@@ -80,8 +80,10 @@ class IPV6Template(DataTemplate):
 
 
 class ITNTemplate(DataTemplate):
+    regex: re.Pattern = re.compile(r"^\d{10,12}$")
+
     def is_valid_format(self, data: str) -> bool:
-        return True
+        return bool(re.fullmatch(self.regex, data))
 
 
 print(DateTemplate().is_valid_format("2020/12/01"))
