@@ -42,7 +42,7 @@ class DateTemplate(DataTemplate):
 
 
 class PhoneTemplate(DataTemplate):
-    regex: str = r"^\+?1?\d{9,15}"
+    regex: re.Pattern = re.compile(r"^\+?1?\d{9,15}")
 
     def is_valid_format(self, data: str) -> bool:
         # fmt: off
@@ -52,8 +52,12 @@ class PhoneTemplate(DataTemplate):
 
 
 class EmailTemplate(DataTemplate):
+    regex: re.Pattern = re.compile(r"^\S+@\S+\.\S+$", re.IGNORECASE)
+
     def is_valid_format(self, data: str) -> bool:
-        return True
+        if "@" not in data:
+            return False
+        return bool(re.fullmatch(self.regex, data))
 
 
 class AddressTemplate(DataTemplate):
