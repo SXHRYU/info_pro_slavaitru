@@ -52,22 +52,22 @@ class PhoneTemplate(DataTemplate):
 
 
 class EmailTemplate(DataTemplate):
-    def is_valid_format(self) -> bool:
+    def is_valid_format(self, data: str) -> bool:
         return True
 
 
 class AddressTemplate(DataTemplate):
-    def is_valid_format(self) -> bool:
+    def is_valid_format(self, data: str) -> bool:
         return True
 
 
 class IPV4Template(DataTemplate):
-    def is_valid_format(self) -> bool:
+    def is_valid_format(self, data: str) -> bool:
         return True
 
 
 class ITNTemplate(DataTemplate):
-    def is_valid_format(self) -> bool:
+    def is_valid_format(self, data: str) -> bool:
         return True
 
 
