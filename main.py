@@ -55,8 +55,6 @@ class EmailTemplate(DataTemplate):
     regex: re.Pattern = re.compile(r"^\S+@\S+\.\S+$", re.IGNORECASE)
 
     def is_valid_format(self, data: str) -> bool:
-        if "@" not in data:
-            return False
         return bool(re.fullmatch(self.regex, data))
 
 
@@ -75,8 +73,10 @@ class IPV4Template(DataTemplate):
         return bool(re.fullmatch(self.regex, data))
 
 class IPV6Template(DataTemplate):
+    regex: re.Pattern = re.compile(r"((([0-9a-fA-F]){1,4})\\:){7}([0-9a-fA-F]){1,4}")
+
     def is_valid_format(self, data: str) -> bool:
-        return True
+        return bool(re.fullmatch(self.regex, data))
 
 
 class ITNTemplate(DataTemplate):
