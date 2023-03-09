@@ -3,12 +3,12 @@
     <h1>Просмотр файла</h1>
     <table style="border: 1px black solid">
         <tr>
-            <th style="padding-right: 35px;">Название файла</th>
+            <th style="padding-right: 35px;">Содержимое файла</th>
             <th style="padding-right: 35px;">Размер</th>
             <th style="padding-right: 35px;">Типы данных</th>
         </tr>
         <tr>
-            <td style="padding-right: 35px;">{{ model.name }}</td>
+            <td style="padding-right: 35px;"><a href="{% url 'files-contents' model.pk %}">{{ model.name }}</a></td>
             <td style="padding-right: 35px;">{{ model.file_size|filesizeformat }}</td>
             <td style="padding-right: 35px;">{% for data_type in model.data_types %}
                     {{ forloop.counter }}. {{ data_type }}
