@@ -3,6 +3,7 @@ from .models import File
 
 
 class FileAdmin(admin.ModelAdmin):
-    fields = ['filepath']
+    fields = ["filepath"]
+
 
 admin.site.register(File, FileAdmin)

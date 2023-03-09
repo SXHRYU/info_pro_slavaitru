@@ -1,11 +1,11 @@
 {% extends 'mapper/base.html' %}
 {% block content %}
+    <h1>Загрузите файл</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <p>
-            Uploaded file
-            {{ form.filepath }}
+            {{ form.as_p }}
         </p>
         <input type="submit" name="uploaded_file" value="Upload">
     </form> <br>

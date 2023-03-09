@@ -7,11 +7,11 @@ class UploadFileForm(forms.ModelForm):
     class Meta:
         model = File
         fields = [
-            'filepath',
+            "filepath",
         ]
 
     def get_file_size(request):
-        return request.FILES.get('filepath').size
-    
+        return request.FILES.get("filepath").size
+
     def get_name(self):
         return self.instance.uploaded_file.name

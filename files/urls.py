@@ -17,6 +17,4 @@ from django.urls import path
 from .views import FilesUpload
 
 
-urlpatterns = [
-    path("", FilesUpload.as_view(), name="files-upload")
-]
+urlpatterns = [path("", FilesUpload.as_view(), name="files-upload")]
