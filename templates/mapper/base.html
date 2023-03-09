@@ -7,6 +7,8 @@
     <title>Инфо Про</title>
 </head>
 <body>
+    <h3><a href="{% url 'files-upload' %}">На главную</a></h3>
+    <h3><a href="{% url 'admin:index' %}">Админка</a></h3>
     {% block content %}
     {% endblock content %}
 </body>
