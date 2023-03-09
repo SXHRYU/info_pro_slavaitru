@@ -9,9 +9,3 @@ class UploadFileForm(forms.ModelForm):
         fields = [
             "filepath",
         ]
-
-    def get_file_size(request):
-        return request.FILES.get("filepath").size
-
-    def get_name(self):
-        return self.instance.uploaded_file.name

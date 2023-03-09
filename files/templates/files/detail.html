@@ -15,5 +15,14 @@
                 {% endfor %}
             </td>
         </tr>
+        <tr>
+            <td style="padding-right: 35px;"></td>
+            <td style="padding-right: 35px;"></td>
+            <td style="padding-right: 35px;">
+                <form action="{% url 'files-update' model.pk %}" method="get">
+                    <input type="submit" value="Update"/>
+                </form>
+            </td>
+        </tr>
     </table>
 {% endblock content %}

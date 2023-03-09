@@ -1,0 +1,15 @@
+{% extends 'mapper/base.html' %}
+{% block content %}
+    <h1>Редактировать структуру файла</h1>
+    <a href="{% url 'files-detail' model.id %}">Отменить</a>
+    
+    <h3>Оригинальная структура:</h3>
+    <p>{{ model.data_types }}</p>
+    <h3>Изменённая структура</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        <input type="submit" name="updated_field" value="Update">
+    </form> <br>
+{% endblock content %}
