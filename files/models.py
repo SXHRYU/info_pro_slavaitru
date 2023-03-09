@@ -37,9 +37,5 @@ class File(models.Model):
     def __str__(self) -> str:
         return f"models.{super().__str__()}"
 
-    # def get_absolute_url(self):
-    #     return reverse("files-detail", kwargs={"pk": self.pk})
-
-    # def extension(self):
-    #     _, extension = os.path.splitext(self.file.name)
-    #     return extension
+    def get_absolute_url(self):
+        return reverse("files-detail", kwargs={"pk": self.pk})

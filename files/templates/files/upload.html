@@ -4,9 +4,7 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.non_field_errors }}
-        <p>
-            {{ form.as_p }}
-        </p>
+        {{ form.as_p }}
         <input type="submit" name="uploaded_file" value="Upload">
     </form> <br>
 {% endblock content %}

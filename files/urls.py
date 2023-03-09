@@ -19,5 +19,5 @@ from .views import FilesUpload, FilesDetail
 
 urlpatterns = [
     path("", FilesUpload.as_view(), name="files-upload"),
-    path("pk:pk", FilesDetail.as_view(), name="files-detail"),
+    path("files/<int:pk>/", FilesDetail.as_view(), name="files-detail"),
 ]
