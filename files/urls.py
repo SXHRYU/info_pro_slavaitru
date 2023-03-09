@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import FilesUpload
+from .views import FilesUpload, FilesDetail
 
 
-urlpatterns = [path("", FilesUpload.as_view(), name="files-upload")]
+urlpatterns = [
+    path("", FilesUpload.as_view(), name="files-upload"),
+    path("pk:pk", FilesDetail.as_view(), name="files-detail"),
+]
