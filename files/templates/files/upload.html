@@ -1,0 +1,12 @@
+{% extends 'mapper/base.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <p>
+            Uploaded file
+            {{ form.filepath }}
+        </p>
+        <input type="submit" name="uploaded_file" value="Upload">
+    </form> <br>
+{% endblock content %}

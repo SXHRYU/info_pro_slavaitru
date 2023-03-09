@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import File
 
-# Register your models here.
+
+class FileAdmin(admin.ModelAdmin):
+    fields = ['filepath']
+
+admin.site.register(File, FileAdmin)

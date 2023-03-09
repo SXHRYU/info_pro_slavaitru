@@ -10,3 +10,4 @@ venv
 test*.txt
 test*.csv
 *.pdf
+uploads
