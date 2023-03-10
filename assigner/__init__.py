@@ -1,13 +1,13 @@
 from typing import Sequence
 from .templates import (
+    AddressTemplate,
     DataTemplate,
     DateTemplate,
-    PhoneTemplate,
     EmailTemplate,
-    AddressTemplate,
+    INNTemplate,
     IPV4Template,
     IPV6Template,
-    INNTemplate,
+    PhoneTemplate,
     TimeTemplate,
     UnknownTemplate,
 )
