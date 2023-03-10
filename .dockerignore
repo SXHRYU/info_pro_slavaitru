@@ -1,0 +1,14 @@
+# dirs
+uploads
+venv
+.vscode
+__pycache__
+migrations
+
+# files
+db.sqlite3
+*.pdf
+*.txt
+
+# git
+*git*
