@@ -1,6 +1,5 @@
 migrations
 __pycache__
-db.sqlite3
 venv
 .ps1
 .sh
