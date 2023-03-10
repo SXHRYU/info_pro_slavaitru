@@ -9,6 +9,7 @@ migrations
 db.sqlite3
 *.pdf
 *.txt
+!requirements.txt
 
 # git
 *git*
