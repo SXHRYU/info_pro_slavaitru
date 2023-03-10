@@ -1,0 +1,15 @@
+{% extends 'mapper/base.html' %}
+{% block content %}
+    <h1>Содержимое файла</h1>
+    <a href="{% url 'files-detail' model.id %}">Назад</a>
+
+    <h3>Структура файла</h3>
+    <div style="display: inline-block; border: 1px solid black">
+        {% for data_type in model.data_types %}
+        <div style="display: inline-block; padding: 0 15px"><b>{{ data_type }}</b></div>
+        {% endfor %}
+    </div>
+
+    <h4>Not implemented</h4>
+    
+{% endblock content %}

@@ -35,6 +35,9 @@ class File(models.Model):
         return types
 
     def __str__(self) -> str:
+        return f"Файл '{self.name}' ID: {self.pk}"
+
+    def __repr__(self) -> str:
         return f"models.{super().__str__()}"
 
     def get_absolute_url(self):

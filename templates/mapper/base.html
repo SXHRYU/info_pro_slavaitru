@@ -9,6 +9,9 @@
 <body>
     <h3><a href="{% url 'files-upload' %}">На главную</a></h3>
     <h3><a href="{% url 'admin:index' %}">Админка</a></h3>
+    {% block all_files %}
+    <a href="{% url 'files-all' %}">Все файлы</a>
+    {% endblock all_files %}
     {% block content %}
     {% endblock content %}
 </body>

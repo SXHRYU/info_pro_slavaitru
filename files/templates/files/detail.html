@@ -1,24 +1,26 @@
 {% extends 'mapper/base.html' %}
 {% block content %}
-    <h1>Просмотр файла</h1>
+    <h1>Просмотр файла ID: {{ model.pk }}</h1>
     <table style="border: 1px black solid">
         <tr>
-            <th style="padding-right: 35px;">Содержимое файла</th>
-            <th style="padding-right: 35px;">Размер</th>
-            <th style="padding-right: 35px;">Типы данных</th>
+            <th style="padding-right: 25px;">Содержимое файла</th>
+            <th style="padding-right: 25px;">Размер</th>
+            <th style="padding-right: 25px;">Типы данных</th>
+            <th style="padding-right: 25px;">Дата создания</th>
         </tr>
         <tr>
-            <td style="padding-right: 35px;"><a href="{% url 'files-contents' model.pk %}">{{ model.name }}</a></td>
-            <td style="padding-right: 35px;">{{ model.file_size|filesizeformat }}</td>
-            <td style="padding-right: 35px;">{% for data_type in model.data_types %}
+            <td style="padding-right: 25px;"><a href="{% url 'files-contents' model.pk %}">{{ model.name }}</a></td>
+            <td style="padding-right: 25px;">{{ model.file_size|filesizeformat }}</td>
+            <td style="padding-right: 25px;">{% for data_type in model.data_types %}
                     {{ forloop.counter }}. {{ data_type }}
                 {% endfor %}
             </td>
+            <td style="padding-right: 25px;">{{ model.date_uploaded }}</td>
         </tr>
         <tr>
-            <td style="padding-right: 35px;"></td>
-            <td style="padding-right: 35px;"></td>
-            <td style="padding-right: 35px;">
+            <td style="padding-right: 25px;"></td>
+            <td style="padding-right: 25px;"></td>
+            <td style="padding-right: 25px;">
                 <form action="{% url 'files-update' model.pk %}" method="get">
                     <input type="submit" value="Update"/>
                 </form>

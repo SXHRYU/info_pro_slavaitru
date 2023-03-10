@@ -1,0 +1,12 @@
+{% extends 'mapper/base.html' %}
+{% block all_files %}
+{% endblock all_files %}
+
+{% block content %}
+<ul>
+    {% for model in models %}
+        <li style="padding-bottom: 5px;"><a href="{% url 'files-detail' model.pk %}">{{ model }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock content %}
+
