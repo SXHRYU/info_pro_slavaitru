@@ -57,4 +57,9 @@
 <a name="contacts"></a>
 ## Контакты
 
+[Telegram](https://t.me/SXRu1)
+
+[Gmail](mailto:slavaitru@gmail.com)
+
+
 
